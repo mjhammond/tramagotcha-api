@@ -13,10 +13,18 @@ const init = async () => {
 
 server.route({
     method: 'GET',
-    path: '/',
+    path: '/getUserDetails',
     handler: (request, h) => {
-
-        return 'Tramagotcha api!';
+        const ID = request.query.ID;
+        return {
+            ID,
+            userName: 'tramagotcha',
+            password: 'p4ssw0rd',
+            currentLevel: 40,
+            currentScore: 9000,
+            currentXp: 360,
+            PetId: 123,
+        };
     }
 });
 
