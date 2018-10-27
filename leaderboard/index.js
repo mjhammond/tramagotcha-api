@@ -16,5 +16,6 @@ module.exports = async () =>{
     users.sort(function(a, b){
             return b.score-a.score
         });
+        
     return users;
 }
