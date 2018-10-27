@@ -1,6 +1,7 @@
 const Hapi = require('hapi');
 const database = require('./database');
-const login = require('./login')
+const login = require('./login');
+const userDetails = require('./userDetails')
 
 const server = Hapi.server({
     port: 6006,
@@ -18,15 +19,7 @@ server.route({
     path: '/getUserDetails',
     handler: (request, h) => {
         const ID = request.query.ID;
-        return {
-            ID,
-            userName: 'tramagotcha',
-            password: 'p4ssw0rd',
-            currentLevel: 40,
-            currentScore: 9000,
-            currentXp: 360,
-            PetId: 123,
-        };
+        return userDetails(ID);
     }
 });
 
