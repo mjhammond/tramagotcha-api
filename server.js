@@ -4,6 +4,7 @@ const userDetails = require('./userDetails');
 const location = require('./location');
 const scoring = require('./scoring');
 const leaderboard = require('./leaderboard');
+const metroApi = require('./metroApi')
 
 const server = Hapi.server({
     port: 6006,
@@ -72,6 +73,16 @@ server.route({
     path: '/leaderboard',
     handler: (request, h) => {
         return leaderboard();
+    }
+});
+
+
+server.route({
+    config,
+    method: 'GET',
+    path: '/metrolinkstuff',
+    handler: (request, h) => {
+        return metroApi(request.query.line);
     }
 });
 

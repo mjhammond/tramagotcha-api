@@ -1,6 +1,7 @@
 const location = require('../location');
 const database = require('../database');
 const userDetails = require('../userDetails');
+const metroApi = require('../metroApi')
 
 module.exports = async (ID, lat, long) =>{
     const { user } = await userDetails(ID);
@@ -24,6 +25,13 @@ module.exports = async (ID, lat, long) =>{
     const query = `UPDATE userTable SET currentLevel = ${level}, currentScore = ${newCurrency}, currentXp = ${newXp}, PetId = ${petId}  where ID = ${ID}`
     
     await database(query);
-    return await userDetails(ID);
+    var userbasic = await userDetails(ID);
+    var delay = await metroApi(currentlocation.metroline);
+    var delayUser = {
+        user: userbasic.user,
+        items: userbasic.items,
+        delay: delay
+    }
+    return delayUser;
 
 }

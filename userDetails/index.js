@@ -5,7 +5,6 @@ module.exports = async (ID) =>{
     const sqlitems = await database(`select * from userItems as users RIGHT JOIN itemsTable as items ON users.itemId = items.ID WHERE users.userID = ${ID}`)
     const user = sqlUser.recordset[0];
     const items = sqlitems.recordset;
-    console.log(user)
     var userDto = {
         ID: user.ID[0],
         username: user.Username,
@@ -15,7 +14,6 @@ module.exports = async (ID) =>{
         PetId: user.PetId,
         petName: user.petName
     }
-
     return {
         user: userDto,
         items: items
