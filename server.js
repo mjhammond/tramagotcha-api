@@ -3,6 +3,7 @@ const login = require('./login');
 const userDetails = require('./userDetails');
 const location = require('./location');
 const scoring = require('./scoring');
+const leaderboard = require('./leaderboard');
 
 const server = Hapi.server({
     port: 6006,
@@ -62,6 +63,15 @@ server.route({
         const username = request.query.username;
         const password = request.query.password;
         return login(username, password);
+    }
+});
+
+server.route({
+    config,
+    method: 'GET',
+    path: '/leaderboard',
+    handler: (request, h) => {
+        return leaderboard();
     }
 });
 
