@@ -1,0 +1,9 @@
+{
+  "name": "tramagotcha-api",
+  "version": "0.1.0",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "hapi": "^17.6.0"
+  }
+}
