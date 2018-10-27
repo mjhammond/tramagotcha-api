@@ -1,5 +1,6 @@
 const Hapi = require('hapi');
 const sql = require('mssql');
+const database = require('./database')
 const server = Hapi.server({
     port: 6006,
     host: 'localhost'
@@ -10,16 +11,6 @@ const init = async () => {
     console.log(`Server running at: ${server.info.uri}`);
 };
 
-const config = {
-    user: 'zerodarkqwerty',
-    password: 'Laterooms1!',
-    server: 'dbzerodarkqwerty.database.windows.net',
-    database: 'Hackmcr2018',
-    options: {
-        database: 'Hackmcr2018',
-        encrypt: true,
-    }
-};
 
 server.route({
     method: 'GET',
@@ -42,21 +33,9 @@ server.route({
     method: 'GET',
     path: '/testdb',
     handler: async (request, h) => {
-        try {
-            // await sql.connect('mssql://zerodarkqwerty:Laterooms1!@dbzerodarkqwerty.database.windows.net:1433/Hackmcr2018');
-
             const ID = request.query.ID;
-            const pool = await sql.connect(config)
-            const result1 = await pool.request()
-                .input('input_parameter', sql.Int, ID)
-                .query('select * from userTable where id = @input_parameter')
-
-            sql.close();
+            const result1 = database('select * from userTable where id = 1');
             return result1;
-        } catch(err) {
-            console.log(err);
-            sql.close();
-        }
     }
 })
 
