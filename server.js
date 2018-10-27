@@ -1,6 +1,7 @@
 const Hapi = require('hapi');
-const sql = require('mssql');
-const database = require('./database')
+const database = require('./database');
+const login = require('./login')
+
 const server = Hapi.server({
     port: 6006,
     host: 'localhost'
@@ -26,6 +27,16 @@ server.route({
             currentXp: 360,
             PetId: 123,
         };
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/login',
+    handler: (request, h) => {
+        const username = request.query.username;
+        const password = request.query.password;
+        return login(username, password);
     }
 });
 
