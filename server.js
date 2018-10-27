@@ -1,7 +1,8 @@
 const Hapi = require('hapi');
-const database = require('./database');
 const login = require('./login');
-const userDetails = require('./userDetails')
+const userDetails = require('./userDetails');
+const location = require('./location');
+const scoring = require('./scoring');
 
 const server = Hapi.server({
     port: 6006,
@@ -25,6 +26,27 @@ server.route({
 
 server.route({
     method: 'GET',
+    path: '/locationtest',
+    handler: (request, h) => {
+        const lat = request.query.lat;
+        const long = request.query.long;
+        return location(lat,long);
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/score',
+    handler: (request, h) => {
+        const lat = request.query.lat;
+        const long = request.query.long;
+        const ID = request.query.ID;
+        return scoring(ID,lat,long);
+    }
+});
+
+server.route({
+    method: 'GET',
     path: '/login',
     handler: (request, h) => {
         const username = request.query.username;
@@ -33,15 +55,6 @@ server.route({
     }
 });
 
-server.route({
-    method: 'GET',
-    path: '/testdb',
-    handler: async (request, h) => {
-            const ID = request.query.ID;
-            const result1 = database('select * from userTable where id = 1');
-            return result1;
-    }
-})
 
 process.on('unhandledRejection', (err) => {
     console.log(err);
