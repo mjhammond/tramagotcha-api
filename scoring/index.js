@@ -6,12 +6,17 @@ const metroApi = require('../metroApi')
 module.exports = async (ID, lat, long) =>{
     const { user } = await userDetails(ID);
     const currentlocation = await location(lat,long);
+    var delay = await metroApi(currentlocation.metroline);
     if (currentlocation == {}){
         return user;
     }
     var level = user.currentLevel;
-    var newXp = user.currentXp + 10;
-    var newCurrency = user.currentCurrency + 10;
+    var scoreing = 10
+    if(delay.delay == true){
+        scoreing += 10;
+    }
+    var newXp = user.currentXp + scoreing;
+    var newCurrency = user.currentCurrency + scoreing;
     var petId = user.PetId;
 
     if(newXp > 1000) {
@@ -26,7 +31,6 @@ module.exports = async (ID, lat, long) =>{
     
     await database(query);
     var userbasic = await userDetails(ID);
-    var delay = await metroApi(currentlocation.metroline);
     var delayUser = {
         user: userbasic.user,
         items: userbasic.items,
