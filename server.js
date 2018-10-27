@@ -32,6 +32,7 @@ server.route({
 });
 
 server.route({
+    config,
     method: 'GET',
     path: '/locationtest',
     handler: (request, h) => {
@@ -42,6 +43,7 @@ server.route({
 });
 
 server.route({
+    config,
     method: 'GET',
     path: '/score',
     handler: (request, h) => {
@@ -53,6 +55,7 @@ server.route({
 });
 
 server.route({
+    config,
     method: 'GET',
     path: '/login',
     handler: (request, h) => {
