@@ -5,7 +5,7 @@ const userDetails = require('./userDetails')
 
 const server = Hapi.server({
     port: 6006,
-    host: 'localhost'
+    host: 'localhost',
 });
 
 const init = async () => {
@@ -13,8 +13,15 @@ const init = async () => {
     console.log(`Server running at: ${server.info.uri}`);
 };
 
+const config = {
+    cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+    }
+};
 
 server.route({
+    config,
     method: 'GET',
     path: '/getUserDetails',
     handler: (request, h) => {
