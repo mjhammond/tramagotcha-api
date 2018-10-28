@@ -30,7 +30,6 @@ module.exports = async (ID, lat, long) =>{
     
 
     const query = `UPDATE userTable SET currentLevel = ${level}, currentScore = ${newCurrency}, currentXp = ${newXp}, PetId = ${petId}  where ID = ${ID}`
-    
     await database(query);
     var userbasic = await userDetails(ID);
     var delayUser = {
