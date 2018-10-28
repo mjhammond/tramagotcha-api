@@ -1,7 +1,6 @@
 const sql = require('mssql');
 
 module.exports = async (query) =>{
-    try {
     const config = {
         user: 'zerodarkqwerty',
         password: 'Laterooms1!',
@@ -12,15 +11,10 @@ module.exports = async (query) =>{
             encrypt: true,
         }
     };
-    const pool = await sql.connect(config)
-            const result1 = await pool.request()
-                .query(query)
-            sql.close();
-            
-    return result1; 
-    }
-    catch(err) {
-        console.log(err);
-        sql.close();
-    }
+
+    const pool = new sql.ConnectionPool(config);
+        await pool.connect();
+        const request = new sql.Request(pool);
+        const result = await request.query(query);
+        return result;
 }
