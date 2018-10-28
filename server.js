@@ -7,6 +7,7 @@ const leaderboard = require('./leaderboard');
 const metroApi = require('./metroApi');
 const achievements = require('./achievements');
 const minigames = require('./minigames');
+const getItems = require('./itemsForSale');
 
 const server = Hapi.server({
     port: 6006,
@@ -57,6 +58,16 @@ server.route({
         return scoring(ID,lat,long);
     }
 });
+
+server.route({
+    config,
+    method: 'GET',
+    path: '/getItems',
+    handler: (request, h) => {
+        return getItems();
+    }
+});
+
 
 server.route({
     config,
