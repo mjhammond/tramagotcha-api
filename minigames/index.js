@@ -6,10 +6,11 @@ const metroApi = require('../metroApi')
 module.exports = async (ID, lat, long, score) =>{
     const { user } = await userDetails(ID);
     const currentlocation = await location(lat,long);
-    var delay = await metroApi(currentlocation.metroline);
-    if (currentlocation == {}){
+    if (currentlocation === false){
         return user;
     }
+
+    var delay = await metroApi(currentlocation.metroline);
     
     var level = user.currentLevel;
     var scoreing = parseInt(score, 10);;

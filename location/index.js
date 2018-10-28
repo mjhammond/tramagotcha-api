@@ -18,6 +18,6 @@ module.exports = async (lat, long) =>{
         if(distance < 500) {
             return metros[i]
         }
-        return {}
+        return false
     }
 }
