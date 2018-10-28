@@ -2,7 +2,6 @@ const database = require('../database')
 
 module.exports = async (ID) =>{
     const sqlUser = await database(`select * from userTable as users LEFT JOIN petTable as pets ON users.PetId = pets.id where users.id = ${ID}`);
-    console.log(sqlUser)
     const sqlitems = await database(`select * from userItems as users RIGHT JOIN itemsTable as items ON users.itemId = items.ID WHERE users.userID = ${ID}`)
     const user = sqlUser.recordset[0];
     const items = sqlitems.recordset;

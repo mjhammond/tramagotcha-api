@@ -65,7 +65,7 @@ server.route({
     method: 'GET',
     path: '/getItems',
     handler: (request, h) => {
-        return getItems();
+        return getItems(request.query.ID);
     }
 });
 
