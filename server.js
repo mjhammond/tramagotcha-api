@@ -11,7 +11,7 @@ const getItems = require('./itemsForSale');
 const buyItems = require('./buyItem')
 
 const server = Hapi.server({
-    port: 6006,
+    port: PROCESS.ENV.PORT || 6006,
     host: 'localhost',
 });
 
