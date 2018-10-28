@@ -3,17 +3,18 @@ const database = require('../database');
 const userDetails = require('../userDetails');
 const metroApi = require('../metroApi')
 
-module.exports = async (ID, lat, long) =>{
+module.exports = async (ID, lat, long, score) =>{
     const { user } = await userDetails(ID);
     const currentlocation = await location(lat,long);
     var delay = await metroApi(currentlocation.metroline);
     if (currentlocation == {}){
         return user;
     }
+    
     var level = user.currentLevel;
-    var scoreing = 10
+    var scoreing = parseInt(score, 10);;
     if(delay.delay == true){
-        scoreing += 10;
+        scoreing += parseInt(score, 10);;
     }
     var newXp = user.currentXp + scoreing;
     var newCurrency = user.currentCurrency + scoreing;
@@ -27,7 +28,6 @@ module.exports = async (ID, lat, long) =>{
             petId ++ 
         }
     }
-    
 
     const query = `UPDATE userTable SET currentLevel = ${level}, currentScore = ${newCurrency}, currentXp = ${newXp}, PetId = ${petId}  where ID = ${ID}`
     
@@ -39,5 +39,4 @@ module.exports = async (ID, lat, long) =>{
         delay: delay
     }
     return delayUser;
-
 }

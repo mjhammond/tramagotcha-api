@@ -4,7 +4,9 @@ const userDetails = require('./userDetails');
 const location = require('./location');
 const scoring = require('./scoring');
 const leaderboard = require('./leaderboard');
-const metroApi = require('./metroApi')
+const metroApi = require('./metroApi');
+const achievements = require('./achievements');
+const minigames = require('./minigames');
 
 const server = Hapi.server({
     port: 6006,
@@ -59,6 +61,19 @@ server.route({
 server.route({
     config,
     method: 'GET',
+    path: '/minigames',
+    handler: (request, h) => {
+        const lat = request.query.lat;
+        const long = request.query.long;
+        const ID = request.query.ID;
+        const score = request.query.score;
+        return minigames(ID,lat,long, score);
+    }
+});
+
+server.route({
+    config,
+    method: 'GET',
     path: '/login',
     handler: (request, h) => {
         const username = request.query.username;
@@ -83,6 +98,15 @@ server.route({
     path: '/metrolinkstuff',
     handler: (request, h) => {
         return metroApi(request.query.line);
+    }
+});
+
+server.route({
+    config,
+    method: 'GET',
+    path: '/achievementstuff',
+    handler: (request, h) => {
+        return achievements(request.query.ID,request.query.level,request.query.delay);
     }
 });
 
