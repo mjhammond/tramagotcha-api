@@ -8,6 +8,7 @@ const metroApi = require('./metroApi');
 const achievements = require('./achievements');
 const minigames = require('./minigames');
 const getItems = require('./itemsForSale');
+const buyItems = require('./buyItem')
 
 const server = Hapi.server({
     port: 6006,
@@ -65,6 +66,17 @@ server.route({
     path: '/getItems',
     handler: (request, h) => {
         return getItems();
+    }
+});
+
+server.route({
+    config,
+    method: 'GET',
+    path: '/BuyItems',
+    handler: (request, h) => {
+        const userId = request.query.userId;
+        const itemId = request.query.itemId;
+        return buyItems(userId, itemId);
     }
 });
 

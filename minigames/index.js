@@ -13,9 +13,9 @@ module.exports = async (ID, lat, long, score) =>{
     var delay = await metroApi(currentlocation.metroline);
     
     var level = user.currentLevel;
-    var scoreing = parseInt(score, 10);;
+    var scoreing = parseInt(score, 10);
     if(delay.delay == true){
-        scoreing += parseInt(score, 10);;
+        scoreing += parseInt(score, 10);
     }
     var newXp = user.currentXp + scoreing;
     var newCurrency = user.currentCurrency + scoreing;
