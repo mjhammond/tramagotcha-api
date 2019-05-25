@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "dependencies": {
-    "geolib": "^2.0.24",
+    "geolib": "^3.0.0",
     "hapi": "^18.0.0",
     "mssql": "^4.2.2",
     "request": "^2.88.0",
